@@ -1,7 +1,7 @@
 const signUpButton = document.getElementById('signUp');
 const signInButton = document.getElementById('signIn');
 const container = document.getElementById('container');
-
+const submit=document.getElementById("submit");
 signUpButton.addEventListener('click', () => {
   container.classList.add('right-panel-active');
 });
@@ -16,53 +16,29 @@ const kiemTraEmail = (email) => {
   );
 };
 
-//kiểm tra các trường nhập của đăng nhập
 function xacnhan(event) {
-  var giatriemail = document.getElementById("email").value.trim();
+  event.preventDefault();
+  var giatriemail = document.getElementById("username").value.trim();
   var giatrimatkhau = document.getElementById("matkhau").value.trim();
-  var email = document.getElementById("email");
-  var matkhau = document.getElementById("matkhau");
+  
 
-  if (giatriemail == "") {
-    email.style.border = "1px solid #ff8471";
-    loi("loi_email", "Email không được bỏ trống");
-  } else if (!kiemTraEmail(giatriemail)) {
-    email.style.border = "1px solid #ff8471";
-    loi("loi_email", "Email sai");
-  } else {
-    email.style.border = "1px solid #7b5be4";
-    loi("loi_email", "");
+  if (giatriemail == "" || !kiemTraEmail(giatriemail) || giatrimatkhau == "" || giatrimatkhau.length < 8) {
+    alert("Tài khoản hoặc mật khẩu chưa chính xác!");
+  } 
+  else{
+    alert("Đăng nhập thành công!");
+    window.location.href="Thanhketqua.html";
   }
-
-  if (giatrimatkhau == "") {
-    matkhau.style.border = "1px solid #ff8471";
-    loi("loi_mat_khau", "Mật khẩu không được bỏ trống");
-  } else if (giatrimatkhau.length < 8) {
-    matkhau.style.border = "1px solid #ff8471";
-    loi("loi_mat_khau", "Mật khẩu phải nhiều hơn 8 kí tự");
-  } else {
-    matkhau.style.border = "1px solid #7b5be4";
-    loi("loi_mat_khau", "");
-  }
-
-  if (
-    giatriemail == "" ||
-    giatrimatkhau == "" ||
-    !kiemTraEmail(giatriemail) ||
-    giatrimatkhau.length < 8
-  ) {
-    return false;
-  } else {
-    return true;
-  }
+  
 }
 
 function loi(id, message) {
   document.getElementById(id).innerHTML = message;
 }
 
-//kiểm tra các trường nhập của đăng ký
+// kiểm tra các trường nhập của đăng ký
 function xacnhandangky(event) {
+  event.preventDefault();
   var giatriemaildangky = document.getElementById("emaildangky").value.trim();
   var giatritendangky = document.getElementById("tendangky").value.trim();
   var giatrimatkhaudangky = document
@@ -137,6 +113,3 @@ function xacnhandangky(event) {
 
 }
 
-function loidangky(id, message) {
-  document.getElementById(id).innerHTML = message;
-}
